@@ -6,6 +6,30 @@
 Stability: 1 - Experimental
 ```
 
+## Usage
+
+```js
+var fileEmitter = require('file-emitter');
+
+var fe = fileEmitter('./lib');
+
+fe.on('file', function(file) {
+  // {string} file.name
+  // {fs.Stats} file.stats
+  // {Buffer} file.data
+});
+
+
+fe.on('error', function(err) {
+  // everything but EMFILE
+});
+
+
+fe.once('end', function(hadError) {
+  // done
+});
+```
+
 ## Tests
 
 ```bash
@@ -16,8 +40,8 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : XX.XX% ( YY/ZZ )
-Branches     : XX.XX% ( YY/ZZ )
-Functions    : XX.XX% ( YY/ZZ )
-Lines        : XX.XX% ( YY/ZZ )
+Statements   : 87.88% ( 87/99 )
+Branches     : 68.29% ( 28/41 )
+Functions    : 100% ( 10/10 )
+Lines        : 87.88% ( 87/99 )
 ```
