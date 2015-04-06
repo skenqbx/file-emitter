@@ -9,7 +9,9 @@ var fileEmitter = require('../');
 suite('file-emitter', function() {
 
   test('basic', function(done) {
-    var fe = fileEmitter(common.root + '/lib');
+    var fe = fileEmitter(common.root + '/lib', {
+      pattern: /.*\.js$/
+    });
     var files = [];
 
     fe.on('file', function(file) {

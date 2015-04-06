@@ -9,7 +9,9 @@ Stability: 1 - Experimental
 ## Usage
 
 ```js
-var fileEmitter = require('file-emitter');
+var fileEmitter = require('file-emitter', {
+  pattern: /.*\.js$/          // only files ending with `.js`
+});
 
 var fe = fileEmitter('./lib');
 
@@ -40,8 +42,8 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 87.88% ( 87/99 )
-Branches     : 68.29% ( 28/41 )
+Statements   : 87.38% ( 90/103 )
+Branches     : 68.00% ( 34/50 )
 Functions    : 100% ( 10/10 )
-Lines        : 87.88% ( 87/99 )
+Lines        : 87.38% ( 90/103 )
 ```
