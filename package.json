@@ -17,6 +17,7 @@
   },
   "private": true,
   "dependencies": {
+    "minimatch": "2.0.4"
   },
   "optionalDependencies": {},
   "devDependencies": {
