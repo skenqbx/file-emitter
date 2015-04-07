@@ -9,8 +9,14 @@ var fileEmitter = require('../');
 suite('file-emitter', function() {
 
   test('basic', function(done) {
-    var fe = fileEmitter(common.root + '/lib', {
-      pattern: /.*\.js$/
+    var fe = fileEmitter(common.root, {
+      pattern: /.*\.js$/,
+      ignore: [
+        '.git',
+        'node_modules',
+        'coverage',
+        'test'
+      ]
     });
     var files = [];
 
@@ -26,7 +32,7 @@ suite('file-emitter', function() {
     });
 
     fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 2);
+      assert.strictEqual(files.length, 3);
       assert(!hadError);
       done();
     });

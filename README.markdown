@@ -18,7 +18,7 @@ var fe = fileEmitter('./lib');
 fe.on('file', function(file) {
   // {string} file.name
   // {fs.Stats} file.stats
-  // {Buffer} file.data
+  // {?Buffer} file.data
 });
 
 
@@ -42,8 +42,8 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 87.38% ( 90/103 )
-Branches     : 68.00% ( 34/50 )
-Functions    : 100% ( 10/10 )
-Lines        : 87.38% ( 90/103 )
+Statements   : 89.66% ( 104/116 )
+Branches     : 72.41% ( 42/58 )
+Functions    : 100%   ( 11/11 )
+Lines        : 89.66% ( 104/116 )
 ```
