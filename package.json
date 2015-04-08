@@ -1,6 +1,6 @@
 {
   "name": "file-emitter",
-  "version": "0.90.0",
+  "version": "0.90.1",
   "description": "A recursive file emitter",
   "keywords": [
     "file",
