@@ -33,7 +33,10 @@ suite('file-emitter', function() {
 
       readableStream.on('readable', function() {
         var data = readableStream.read();
-        bytesRead += data.length;
+
+        if (data) {
+          bytesRead += data.length;
+        }
       });
 
       readableStream.once('end', function() {
