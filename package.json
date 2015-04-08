@@ -23,7 +23,7 @@
   "devDependencies": {
     "eslint": "0.18.0",
     "istanbul": "0.3.13",
-    "mocha": "2.2.1",
+    "mocha": "2.2.4",
     "next-update": "0.7.4"
   },
   "scripts": {
@@ -34,6 +34,6 @@
   },
   "engines": {
     "node": ">=0.10",
-    "npm": "~2.7.3"
+    "npm": "~2.7.5"
   }
 }
