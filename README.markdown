@@ -42,15 +42,15 @@ fe.once('end', function(hadError) {
 ## fileEmitter(folder, opt_options)
 Create a new `FileEmitter`, extends `events.EventEmitter`.
 
- - `{string} folder`
- - `{?Object} opt_options`
-  - `{string} mode` The mode of operation; `stats`, `buffer`, defaults to `buffer`
-  - `{boolean} autorun` ..., defaults to `true`
-  - `{RegExp} pattern` Test files before emitting/reading, defaults to `false`
-  - `{Array<string>} ignore` An array of glob patterns to ignore
-  - `{boolean} followSymLinks` ..., defaults to `false`
-  - `{number} maxFDs` The maximum number of open fds, defaults to `Infinity`
-  - `{number} maxFileSize` The max size for a file to buffer, defaults to `10485760` (=10MiB)
+  - `{string} folder`
+  - `{?Object} opt_options`
+    - `{string} mode` The mode of operation; `stats`, `buffer`, defaults to `buffer`
+    - `{boolean} autorun` ..., defaults to `true`
+    - `{RegExp} pattern` Test files before emitting/reading, defaults to `false`
+    - `{Array<string>} ignore` An array of glob patterns to ignore
+    - `{boolean} followSymLinks` ..., defaults to `false`
+    - `{number} maxFDs` The maximum number of open fds, defaults to `Infinity`
+    - `{number} maxFileSize` The max size for a file to buffer, defaults to `10485760` (=10MiB)
 
 ### fe.run()
 Manually start scanning the folder & emitting files when `autostart=false`.
