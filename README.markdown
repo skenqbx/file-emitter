@@ -35,7 +35,7 @@ fe.once('end', function(hadError) {
 ```
 
 ## fileEmitter(folder, opt_options)
-Create a new `FileEmitter`.
+Create a new `FileEmitter`, extends `events.EventEmitter`.
 
  - `{string} folder`
  - `{?Object} opt_options`
@@ -46,6 +46,10 @@ Create a new `FileEmitter`.
   - `{boolean} followSymLinks` ..., default to `false`
   - `{number} maxFDs` The maximum number of open fds, defaults to `Infinity`
   - `{number} maxFileSize` The maximum size for a file to buffer, defaults to `10485760` (= 10 MiB)
+
+### fe.run()
+Manually start scanning the folder & emitting files when `autostart=false`.
+
 
 ## Tests
 
