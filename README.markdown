@@ -1,6 +1,11 @@
-# file-emitter [![Build Status](https://secure.travis-ci.org/skenqbx/file-emitter.png)](http://travis-ci.org/skenqbx/file-emitter)
+# file-emitter
 
 **_A recursive file emitter_**
+
+[![NPM version](https://img.shields.io/npm/v/file-emitter.svg?style=flat-square)](https://www.npmjs.com/package/file-emitter)
+[![downloads](https://img.shields.io/npm/dm/file-emitter.svg?style=flat-square)](https://www.npmjs.com/package/file-emitter)
+[![node version](https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square)](https://www.npmjs.com/package/file-emitter)
+[![Build Status](https://secure.travis-ci.org/skenqbx/file-emitter.png)](http://travis-ci.org/skenqbx/file-emitter)
 
 ```
 Stability: 2 - Unstable
