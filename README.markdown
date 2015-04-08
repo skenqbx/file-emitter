@@ -3,7 +3,7 @@
 **_A recursive file emitter_**
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 ## Usage
