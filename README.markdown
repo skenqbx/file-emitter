@@ -16,18 +16,31 @@ Stability: 2 - Unstable
 ```js
 var fileEmitter = require('file-emitter');
 
-var fe = fileEmitter('./lib');
+var fe = fileEmitter('./lib', {
+  buffer: true,
+  incremental: true,
+  pattern: /.*\.js$/,
+  ignore: [
+    '.git',
+    'node_modules',
+    'coverage',
+    'test'
+  ]
+});
 
 fe.on('file', function(file) {
   // {string} file.name
   // {fs.Stats} file.stats
   // {?Buffer} file.buffer
 
-  if (!file.buffer) {
+  if (!file.buffer) { // maxBufferSize exceeded
+
     // analog to fs.createReadStream()
     var readableStream = file.createReadStream();
     // ... consume stream
   }
+
+  fe.next(); // acknowledge that the file has been processed (see 'incremental')
 });
 
 fe.on('error', function(err) {
@@ -44,17 +57,22 @@ Create a new `FileEmitter`, extends `events.EventEmitter`.
 
   - `{string} folder`
   - `{?Object} opt_options`
-    - `{string} mode` The mode of operation; `stats`, `buffer`, defaults to `buffer`
+    - `{boolean} buffer` Load each file into a buffer before emitting, defaults to `false`
+    - `{number} maxBufferSize` The max size of a file buffer, defaults to `10485760` (=10MiB)
+    - `{boolean} incremental` When `true` each `file` event has to be acknowledged by calling `fe.next()`
     - `{boolean} autorun` ..., defaults to `true`
-    - `{RegExp} pattern` Test files before emitting/reading, defaults to `false`
-    - `{Array<string>} ignore` An array of glob patterns to ignore
     - `{boolean} followSymLinks` ..., defaults to `false`
-    - `{number} maxFDs` The maximum number of open fds, defaults to `Infinity`
-    - `{number} maxFileSize` The max size for a file to buffer, defaults to `10485760` (=10MiB)
+    - `{RegExp} pattern` Only files matching this pattern are emitting/buffered
+    - `{Array<string>} ignore` An array of glob patterns to ignore
 
 ### fe.run()
 Manually start scanning the folder & emitting files when `autostart=false`.
 
+
+### fe.next()
+When the emitter runs with `incremental = true` a call to `next()` is required after each `file` event to acknowledge that the file has been processed.
+
+Used to process files asynchronously while preventing allocation of large queues.
 
 ## Tests
 
@@ -66,8 +84,7 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 91.41% ( 117/128 )
-Branches     : 74.19% ( 46/62 )
-Functions    : 100% ( 13/13 )
-Lines        : 91.41% ( 117/128 )
+Statements   : 89.58% ( 129/144 )
+Branches     : 76.92% ( 60/78 )
+Functions    : 100%   ( 14/14 )
 ```
