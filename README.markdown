@@ -8,7 +8,7 @@
 **_A recursive file emitter_**
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 ## Usage
@@ -63,7 +63,7 @@ Create a new `FileEmitter`, extends `events.EventEmitter`.
     - `{boolean} autorun` ..., defaults to `true`
     - `{boolean} followSymLinks` ..., defaults to `false`
     - `{RegExp} pattern` Only files matching this pattern are emitting/buffered
-    - `{Array<string>} ignore` An array of glob patterns to ignore
+    - `{Array<string>} ignore` An array of glob patterns ala. `.gitignore` for files/folders to ignore
 
 ### fe.run()
 Manually start scanning the folder & emitting files when `autostart=false`.
@@ -72,7 +72,7 @@ Manually start scanning the folder & emitting files when `autostart=false`.
 ### fe.next()
 When the emitter runs with `incremental = true` a call to `next()` is required after each `file` event to acknowledge that the file has been processed.
 
-Used to process files asynchronously while preventing allocation of large queues.
+Used to process files asynchronously while preventing allocation of large queues & file buffers.
 
 ## Tests
 

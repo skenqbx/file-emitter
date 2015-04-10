@@ -1,11 +1,12 @@
 {
   "name": "file-emitter",
-  "version": "0.90.2",
+  "version": "1.0.0",
   "description": "A recursive file emitter",
   "keywords": [
     "file",
     "emitter",
-    "recursive"
+    "recursive",
+    "incremental"
   ],
   "license": "MIT",
   "author": {
