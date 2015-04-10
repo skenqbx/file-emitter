@@ -8,18 +8,16 @@ var fileEmitter = require('../');
 
 suite('file-emitter', function() {
   var def = {
-    pattern: /.*\.js$/,
+    pattern: /.*\.xx$/,
     ignore: [
-      '.git',
-      'node_modules',
-      'coverage',
-      'test'
+      '.sl',
+      '.dot'
     ]
   };
 
 
   test('default', function(done) {
-    var fe = fileEmitter(common.root, {
+    var fe = fileEmitter(common.fixtures, {
       pattern: def.pattern,
       ignore: def.ignore
     });
@@ -59,14 +57,19 @@ suite('file-emitter', function() {
     fe.once('error', done);
 
     fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 4);
+      assert.strictEqual(files.length, 3);
+      assert.deepEqual(files, [
+        '/index.xx',
+        '/lib/index.xx',
+        '/lib/sub/abc.xx'
+      ]);
       assert(!hadError);
     });
   });
 
 
   test('buffer', function(done) {
-    var fe = fileEmitter(common.root, {
+    var fe = fileEmitter(common.fixtures, {
       buffer: true,
       pattern: def.pattern,
       ignore: def.ignore
@@ -84,7 +87,12 @@ suite('file-emitter', function() {
     fe.on('error', done);
 
     fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 4);
+      assert.strictEqual(files.length, 3);
+      assert.deepEqual(files, [
+        '/index.xx',
+        '/lib/index.xx',
+        '/lib/sub/abc.xx'
+      ]);
       assert(!hadError);
       done();
     });
@@ -92,7 +100,7 @@ suite('file-emitter', function() {
 
 
   test('incremental', function(done) {
-    var fe = fileEmitter(common.root, {
+    var fe = fileEmitter(common.fixtures, {
       incremental: true,
       pattern: def.pattern,
       ignore: def.ignore
@@ -109,7 +117,12 @@ suite('file-emitter', function() {
     fe.on('error', done);
 
     fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 4);
+      assert.strictEqual(files.length, 3);
+      assert.deepEqual(files, [
+        '/index.xx',
+        '/lib/index.xx',
+        '/lib/sub/abc.xx'
+      ]);
       assert(!hadError);
       done();
     });
@@ -117,7 +130,7 @@ suite('file-emitter', function() {
 
 
   test('buffer+incremental', function(done) {
-    var fe = fileEmitter(common.root, {
+    var fe = fileEmitter(common.fixtures, {
       incremental: true,
       buffer: true,
       pattern: def.pattern,
@@ -138,7 +151,42 @@ suite('file-emitter', function() {
     fe.on('error', done);
 
     fe.once('end', function(hadError) {
+      assert.strictEqual(files.length, 3);
+      assert.deepEqual(files, [
+        '/index.xx',
+        '/lib/index.xx',
+        '/lib/sub/abc.xx'
+      ]);
+      assert(!hadError);
+      done();
+    });
+  });
+
+
+  test('followSymLinks', function(done) {
+    var fe = fileEmitter(common.fixtures, {
+      followSymLinks: true,
+      pattern: def.pattern,
+      ignore: def.ignore
+    });
+    var files = [];
+
+    fe.on('file', function(file) {
+      assert(file.stats.isFile());
+
+      files.push(file.name);
+    });
+
+    fe.on('error', done);
+
+    fe.once('end', function(hadError) {
       assert.strictEqual(files.length, 4);
+      assert.deepEqual(files, [
+        '/index.xx',
+        '/lib/index.xx',
+        '/lib/sub/abc.xx',
+        '/lib/sl/index.xx'
+      ]);
       assert(!hadError);
       done();
     });
