@@ -220,4 +220,30 @@ suite('file-emitter', function() {
       done();
     });
   });
+
+
+  test('non-recursive', function(done) {
+    var fe = fileEmitter(common.fixtures, {
+      recursive: false,
+      include: def.include
+    });
+    var files = [];
+
+    fe.on('file', function(file) {
+      assert(file.stats.isFile());
+
+      files.push(file.name);
+    });
+
+    fe.on('error', done);
+
+    fe.on('end', function(hadError) {
+      assert.strictEqual(files.length, 1);
+      assert.deepEqual(files, [
+        '/index.xx'
+      ]);
+      assert(!hadError);
+      done();
+    });
+  });
 });

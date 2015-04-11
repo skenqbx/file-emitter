@@ -18,11 +18,13 @@ Create a new `FileEmitter` object, extends `events.EventEmitter`.
   - `{?Object} opt_options`
 
 **opt_options**
+
   - `{boolean} buffer` Load each file into a buffer before emitting, defaults to `false`
   - `{number} maxBufferSize` The max size of a file buffer, defaults to `10485760` (=10MiB)
   - `{boolean} incremental` When `true` each `file` event has to be acknowledged by calling `fe.next()`
-  - `{boolean} autorun` ..., defaults to `true`
   - `{boolean} followSymLinks` ..., defaults to `false`
+  - `{boolean} recursive` ..., defaults to `true`
+  - `{boolean} autorun` ..., defaults to `true`
   - `{Array<string>} exclude` glob patterns applied after `readir`
   - `{Array<string>} include` glob patterns applied after `stat`
   - `{Object} minimatchOptions` See `minimatch` README, defaults to `{matchBase: true}`
@@ -87,7 +89,7 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 92.90% ( 144/155 )
-Branches     : 87.95% ( 73/83 )
-Functions    : 100% ( 17/17 )
+Statements   : 92.95% ( 145/156 )
+Branches     : 89.66% ( 78/87 )
+Functions    : 100%   ( 17/17 )
 ```
