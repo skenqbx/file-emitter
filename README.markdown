@@ -83,6 +83,10 @@ Used to process files asynchronously while preventing allocation of large queues
 ## fileEmitter.list(folder, opt_options, callback)
 Convenience method to retrieve a list of files.
 
+**opt_options**
+  - all options of `fileEmitter()` except for `incremental` & `autorun`
+  - `{function(File, File)} compare` A compare function passed to `Array.sort()`
+
 ## Tests
 
 ```bash
