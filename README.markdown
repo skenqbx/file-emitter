@@ -11,7 +11,23 @@
 Stability: 3 - Stable
 ```
 
-## Usage
+## fileEmitter(folder, opt_options)
+Create a new `FileEmitter` object, extends `events.EventEmitter`.
+
+  - `{string} folder`
+  - `{?Object} opt_options`
+
+**opt_options**
+  - `{boolean} buffer` Load each file into a buffer before emitting, defaults to `false`
+  - `{number} maxBufferSize` The max size of a file buffer, defaults to `10485760` (=10MiB)
+  - `{boolean} incremental` When `true` each `file` event has to be acknowledged by calling `fe.next()`
+  - `{boolean} autorun` ..., defaults to `true`
+  - `{boolean} followSymLinks` ..., defaults to `false`
+  - `{Array<string>} exclude` glob patterns applied after `readir`
+  - `{Array<string>} include` glob patterns applied after `stat`
+  - `{Object} minimatchOptions` See `minimatch` README, defaults to `{matchBase: true}`
+
+### Example
 
 ```js
 var fileEmitter = require('file-emitter');
@@ -51,20 +67,6 @@ fe.once('end', function(hadError) {
   // done
 });
 ```
-
-## fileEmitter(folder, opt_options)
-Create a new `FileEmitter` object, extends `events.EventEmitter`.
-
-  - `{string} folder`
-  - `{?Object} opt_options`
-    - `{boolean} buffer` Load each file into a buffer before emitting, defaults to `false`
-    - `{number} maxBufferSize` The max size of a file buffer, defaults to `10485760` (=10MiB)
-    - `{boolean} incremental` When `true` each `file` event has to be acknowledged by calling `fe.next()`
-    - `{boolean} autorun` ..., defaults to `true`
-    - `{boolean} followSymLinks` ..., defaults to `false`
-    - `{Array<string>} exclude` glob patterns applied after `readir`
-    - `{Array<string>} include` glob patterns applied after `stat`
-    - `{Object} minimatchOptions` See `minimatch` README, defaults to `{matchBase: true}`
 
 ### fe.run()
 Manually start scanning the folder & emitting files when `autostart=false`.
