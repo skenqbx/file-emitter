@@ -30,7 +30,7 @@ Create a new `FileEmitter` object, extends `events.EventEmitter`.
   - `{Object} minimatchOptions` See `minimatch` README, defaults to `{matchBase: true}`
   - `{Function} File` A custom constructor for file objects, has to extend `File`
 
-### Example
+#### Example
 
 ```js
 var fileEmitter = require('file-emitter');
@@ -74,7 +74,7 @@ Convenience method to retrieve a list of files.
   - all options of `fileEmitter()` except for `incremental` & `autorun`
   - `{function(File, File)} compare` A compare function passed to `Array.sort()`
 
-### Example
+#### Example
 
 ```js
 fileEmitter.list('./', {
