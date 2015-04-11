@@ -59,7 +59,9 @@ fe.on('file', function(file) {
     // ... consume stream
   }
 
-  fe.next(); // acknowledge that the file has been processed (see 'incremental')
+  // acknowledge that the file has been processed
+  //   see 'incremental' option
+  fe.next();
 });
 
 fe.on('error', function(err) {
@@ -86,6 +88,18 @@ Convenience method to retrieve a list of files.
 **opt_options**
   - all options of `fileEmitter()` except for `incremental` & `autorun`
   - `{function(File, File)} compare` A compare function passed to `Array.sort()`
+
+### Example
+
+```js
+fileEmitter.list('./', {
+  compare: function(a, b) {
+    return a.stats.size - b.stats.size;
+  },
+}, function(err, files) {
+  // ...
+});
+```
 
 ## Tests
 
