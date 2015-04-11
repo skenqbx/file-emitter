@@ -22,7 +22,6 @@
   },
   "optionalDependencies": {},
   "devDependencies": {
-    "changelog42": "https://github.com/skenqbx/changelog42.git",
     "eslint": "0.19.0",
     "istanbul": "0.3.13",
     "mocha": "2.2.4",
