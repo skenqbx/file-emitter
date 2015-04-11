@@ -33,7 +33,8 @@ suite('file-emitter', function() {
   test('default', function(done) {
     var fe = fileEmitter(common.fixtures, {
       include: def.include,
-      exclude: def.exclude
+      exclude: def.exclude,
+      File: fileEmitter.File
     });
     var files = [];
     var pending = 0;

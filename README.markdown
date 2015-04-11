@@ -28,6 +28,7 @@ Create a new `FileEmitter` object, extends `events.EventEmitter`.
   - `{Array<string>} exclude` glob patterns applied after `readir`
   - `{Array<string>} include` glob patterns applied after `stat`
   - `{Object} minimatchOptions` See `minimatch` README, defaults to `{matchBase: true}`
+  - `{Function} File` A custom constructor for file objects, has to extend `File`
 
 ### Example
 
@@ -89,7 +90,8 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 92.95% ( 145/156 )
-Branches     : 89.66% ( 78/87 )
-Functions    : 100%   ( 17/17 )
+Statements   : 93.04% ( 147/158 )
+Branches     : 89.89% ( 80/89 )
+Functions    : 100% ( 17/17 )
+Lines        : 93.04% ( 147/158 )
 ```
