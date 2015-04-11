@@ -80,6 +80,9 @@ When the emitter runs with `incremental = true` a call to `next()` is required a
 
 Used to process files asynchronously while preventing allocation of large queues & file buffers.
 
+## fileEmitter.list(folder, opt_options, callback)
+Convenience method to retrieve a list of files.
+
 ## Tests
 
 ```bash
@@ -90,8 +93,7 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 93.04% ( 147/158 )
-Branches     : 89.89% ( 80/89 )
-Functions    : 100% ( 17/17 )
-Lines        : 93.04% ( 147/158 )
+Statements   : 93.89% ( 169/180 )
+Branches     : 89.90% ( 89/99 )
+Functions    : 100%   ( 21/21 )
 ```
