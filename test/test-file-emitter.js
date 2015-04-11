@@ -6,20 +6,34 @@ var common = require('./common');
 var fileEmitter = require('../');
 
 
+/**
+ * Note: All FileEmitter events are listened to with `on()` to detect possible double emissions.
+ */
 suite('file-emitter', function() {
   var def = {
-    pattern: /.*\.xx$/,
-    ignore: [
+    include: ['*.xx'],
+    exclude: [
       '.sl',
       '.dot'
     ]
   };
 
 
+  test('error', function(done) {
+    var fe = fileEmitter('does/not/exist');
+
+    fe.on('error', function(err) {
+      assert(err);
+      assert.strictEqual(err.code, 'ENOENT');
+      done();
+    });
+  });
+
+
   test('default', function(done) {
     var fe = fileEmitter(common.fixtures, {
-      pattern: def.pattern,
-      ignore: def.ignore
+      include: def.include,
+      exclude: def.exclude
     });
     var files = [];
     var pending = 0;
@@ -51,16 +65,19 @@ suite('file-emitter', function() {
 
       readableStream.once('error', done);
 
-      files.push(file.name);
+      files.push(file.toJSON().name);
     });
 
-    fe.once('error', done);
+    fe.on('error', done);
 
-    fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 3);
+    fe.on('end', function(hadError) {
+      assert.strictEqual(files.length, 5);
+      files.sort(); // order can not be garanteed due to parallel calls
       assert.deepEqual(files, [
         '/index.xx',
+        '/lib/fn.xx',
         '/lib/index.xx',
+        '/lib/sub/000.xx',
         '/lib/sub/abc.xx'
       ]);
       assert(!hadError);
@@ -71,8 +88,8 @@ suite('file-emitter', function() {
   test('buffer', function(done) {
     var fe = fileEmitter(common.fixtures, {
       buffer: true,
-      pattern: def.pattern,
-      ignore: def.ignore
+      include: def.include,
+      exclude: def.exclude
     });
     var files = [];
 
@@ -81,16 +98,19 @@ suite('file-emitter', function() {
       assert(file.buffer);
       assert.strictEqual(file.stats.size, file.buffer.length);
 
-      files.push(file.name);
+      files.push(file.toJSON().name);
     });
 
     fe.on('error', done);
 
-    fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 3);
+    fe.on('end', function(hadError) {
+      assert.strictEqual(files.length, 5);
+      files.sort(); // order can not be garanteed due to parallel calls
       assert.deepEqual(files, [
         '/index.xx',
+        '/lib/fn.xx',
         '/lib/index.xx',
+        '/lib/sub/000.xx',
         '/lib/sub/abc.xx'
       ]);
       assert(!hadError);
@@ -102,8 +122,8 @@ suite('file-emitter', function() {
   test('incremental', function(done) {
     var fe = fileEmitter(common.fixtures, {
       incremental: true,
-      pattern: def.pattern,
-      ignore: def.ignore
+      include: def.include,
+      exclude: def.exclude
     });
     var files = [];
 
@@ -116,11 +136,13 @@ suite('file-emitter', function() {
 
     fe.on('error', done);
 
-    fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 3);
+    fe.on('end', function(hadError) {
+      assert.strictEqual(files.length, 5);
       assert.deepEqual(files, [
         '/index.xx',
+        '/lib/fn.xx',
         '/lib/index.xx',
+        '/lib/sub/000.xx',
         '/lib/sub/abc.xx'
       ]);
       assert(!hadError);
@@ -133,8 +155,8 @@ suite('file-emitter', function() {
     var fe = fileEmitter(common.fixtures, {
       incremental: true,
       buffer: true,
-      pattern: def.pattern,
-      ignore: def.ignore
+      include: def.include,
+      exclude: def.exclude
     });
     var files = [];
 
@@ -150,11 +172,13 @@ suite('file-emitter', function() {
 
     fe.on('error', done);
 
-    fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 3);
+    fe.on('end', function(hadError) {
+      assert.strictEqual(files.length, 5);
       assert.deepEqual(files, [
         '/index.xx',
+        '/lib/fn.xx',
         '/lib/index.xx',
+        '/lib/sub/000.xx',
         '/lib/sub/abc.xx'
       ]);
       assert(!hadError);
@@ -165,9 +189,10 @@ suite('file-emitter', function() {
 
   test('followSymLinks', function(done) {
     var fe = fileEmitter(common.fixtures, {
+      incremental: true,
       followSymLinks: true,
-      pattern: def.pattern,
-      ignore: def.ignore
+      include: def.include,
+      exclude: def.exclude
     });
     var files = [];
 
@@ -175,17 +200,21 @@ suite('file-emitter', function() {
       assert(file.stats.isFile());
 
       files.push(file.name);
+
+      fe.next();
     });
 
     fe.on('error', done);
 
-    fe.once('end', function(hadError) {
-      assert.strictEqual(files.length, 4);
+    fe.on('end', function(hadError) {
+      assert.strictEqual(files.length, 6);
       assert.deepEqual(files, [
         '/index.xx',
+        '/lib/fn.xx',
         '/lib/index.xx',
-        '/lib/sub/abc.xx',
-        '/lib/sl/index.xx'
+        '/lib/sl/index.xx',
+        '/lib/sub/000.xx',
+        '/lib/sub/abc.xx'
       ]);
       assert(!hadError);
       done();

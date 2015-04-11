@@ -19,8 +19,8 @@ var fileEmitter = require('file-emitter');
 var fe = fileEmitter('./lib', {
   buffer: true,
   incremental: true,
-  pattern: /.*\.js$/,
-  ignore: [
+  include: ['*.js'],
+  exclude: [
     '.git',
     'node_modules',
     'coverage',
@@ -53,7 +53,7 @@ fe.once('end', function(hadError) {
 ```
 
 ## fileEmitter(folder, opt_options)
-Create a new `FileEmitter`, extends `events.EventEmitter`.
+Create a new `FileEmitter` object, extends `events.EventEmitter`.
 
   - `{string} folder`
   - `{?Object} opt_options`
@@ -62,8 +62,9 @@ Create a new `FileEmitter`, extends `events.EventEmitter`.
     - `{boolean} incremental` When `true` each `file` event has to be acknowledged by calling `fe.next()`
     - `{boolean} autorun` ..., defaults to `true`
     - `{boolean} followSymLinks` ..., defaults to `false`
-    - `{RegExp} pattern` Only files matching this pattern are emitting/buffered
-    - `{Array<string>} ignore` An array of glob patterns ala. `.gitignore` for files/folders to ignore
+    - `{Array<string>} exclude` glob patterns applied after `readir`
+    - `{Array<string>} include` glob patterns applied after `stat`
+    - `{Object} minimatchOptions` See `minimatch` README, defaults to `{matchBase: true}`
 
 ### fe.run()
 Manually start scanning the folder & emitting files when `autostart=false`.
@@ -84,7 +85,7 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 90.20% ( 138/153 )
-Branches     : 78.75% ( 63/80 )
-Functions    : 100%   ( 16/16 )
+Statements   : 92.90% ( 144/155 )
+Branches     : 87.95% ( 73/83 )
+Functions    : 100% ( 17/17 )
 ```
