@@ -25,7 +25,8 @@
     "eslint": "0.18.0",
     "istanbul": "0.3.13",
     "mocha": "2.2.4",
-    "next-update": "0.7.4"
+    "next-update": "0.7.4",
+    "changelog42": "https://github.com/skenqbx/changelog42.git"
   },
   "scripts": {
     "lint": "node_modules/.bin/eslint ./",
