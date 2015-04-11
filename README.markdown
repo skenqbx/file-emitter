@@ -34,29 +34,19 @@ Create a new `FileEmitter` object, extends `events.EventEmitter`.
 
 ```js
 var fileEmitter = require('file-emitter');
-
 var fe = fileEmitter('./lib', {
   buffer: true,
   incremental: true,
   include: ['*.js'],
-  exclude: [
-    '.git',
-    'node_modules',
-    'coverage',
-    'test'
-  ]
+  exclude: ['.git', 'node_modules', 'coverage', 'test']
 });
 
 fe.on('file', function(file) {
   // {string} file.name
   // {fs.Stats} file.stats
   // {?Buffer} file.buffer
-
   if (!file.buffer) { // maxBufferSize exceeded
-
-    // analog to fs.createReadStream()
     var readableStream = file.createReadStream();
-    // ... consume stream
   }
 
   // acknowledge that the file has been processed
@@ -64,13 +54,8 @@ fe.on('file', function(file) {
   fe.next();
 });
 
-fe.on('error', function(err) {
-  // everything but EMFILE
-});
-
-fe.once('end', function(hadError) {
-  // done
-});
+fe.on('error', function(err) { }); // everything but EMFILE
+fe.once('end', function(hadError) { });
 ```
 
 ### fe.run()
@@ -95,10 +80,8 @@ Convenience method to retrieve a list of files.
 fileEmitter.list('./', {
   compare: function(a, b) {
     return a.stats.size - b.stats.size;
-  },
-}, function(err, files) {
-  // ...
-});
+  }
+}, function(err, files) { });
 ```
 
 ## Tests
