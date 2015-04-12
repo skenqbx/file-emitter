@@ -94,7 +94,7 @@ firefox coverage/lcov-report/index.html
 ### Coverage
 
 ```
-Statements   : 93.89% ( 169/180 )
+Statements   : 94.05% ( 174/185 )
 Branches     : 89.90% ( 89/99 )
 Functions    : 100%   ( 21/21 )
 ```
