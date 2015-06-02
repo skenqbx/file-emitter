@@ -1,5 +1,13 @@
 # file-emitter ChangeLog
 
+## 2015-06-02, [v2.0.0](https://github.com/skenqbx/file-emitter/tree/v2.0.0) **_<small>stable</small>_**
+
+### Commits
+
+  - [[`27ea09e799`](https://github.com/skenqbx/file-emitter/commit/27ea09e799e3bbdbea00635f85606a5168d6e0e3)] - **deps**: update
+  - [[`f6afa6e162`](https://github.com/skenqbx/file-emitter/commit/f6afa6e162384667ee19ace3673a1ba2e502f983)] - **list**: fix double callback on error
+  - [[`a6d7636566`](https://github.com/skenqbx/file-emitter/commit/a6d7636566baedd727287d1357841647936377a5)] - **package**: update scripts
+
 ## 2015-04-12, [v2.0.0-rc](https://github.com/skenqbx/file-emitter/tree/v2.0.0-rc) **_<small>unstable</small>_**
 
 ### Commits
